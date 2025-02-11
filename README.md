@@ -1,4 +1,4 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/-fOB9vwA)
+ [![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/-fOB9vwA)
 # Assignment 2 - SearchComplete
 
 ## Assignment Objectives
@@ -304,6 +304,11 @@ Did you use 383GPT at all for this assignment (yes/no)?
 
 ### Tree diagram
 - Put the tree diagram for `test.txt` here
+
+```mermaid
+graph TD;
+    ROOT-->T_there[T];
+    T_there[T]-->H_there[H]
 
 ### Code analysis
 

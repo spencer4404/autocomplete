@@ -15,8 +15,6 @@ class Autocomplete():
         self.root = Node()
         self.suggest = self.suggest_random #Default, change this to `suggest_dfs/ucs/bfs` based on which one you wish to use.
 
-    
-    
     def build_tree(self, document):
         for word in document.split():
             node = self.root
