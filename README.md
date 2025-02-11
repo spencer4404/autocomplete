@@ -307,8 +307,8 @@ Did you use 383GPT at all for this assignment (yes/no)?
 
 ```mermaid
 graph TD;
-    ROOT-->T_there[T];
-    T_there[T]-->H_there[H]
+    ROOT-->T;
+    T-->H
 
 ```
 
