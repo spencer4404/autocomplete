@@ -307,8 +307,41 @@ Did you use 383GPT at all for this assignment (yes/no)?
 
 ```mermaid
 graph TD;
-    ROOT-->T;
+    ROOT-->T
     T-->H
+
+    H-->E_there[E]
+    E_there[E]-->R_there[R]
+    R_there[R]-->E_there2[E]
+
+    H-->O_though[O]
+    O_though[O]-->U_though[U]
+    U_though[U]-->G_though[G]
+    G_though[G]-->H_though[H]
+
+    H-->A_that[A]
+    A_that[A]-->T_that[T]
+
+    A_that[A]-->G_thag[G]
+
+    H-->E_their[E]
+    E_their[E]-->I_their[I]
+    I_their[I]-->R_their[R]
+
+    H-->R_through[R]
+    R_through[R]-->O_though[O]
+    
+    H-->E_the[E]
+
+    H-->E_thee[E]-->E_thee2[E]
+
+    H-->O_thought[O]
+    O_thought[O]-->U_thought[U]
+    U_thought[U]-->G_thought[G]
+    G_thought[G]-->H_thought[H]
+    H_thought[H]-->T_thought[T]
+
+    
 
 ```
 
