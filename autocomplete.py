@@ -56,39 +56,44 @@ class Autocomplete():
     def suggest_random(self, prefix):
         random_suffixes = [''.join(random.choice(string.ascii_lowercase) for _ in range(3)) for _ in range(5)]
         return [prefix + suffix for suffix in random_suffixes]
-
-    #TODO for students!!!
-    def suggest_bfs(self, prefix):
-        # base case
-        bfs_suggestions = []
-        # traverse to the correct starting node
+    
+    def get_start_node(self, prefix):
+        """Helper function, runs through the prefix to get to the right starting spot of the tree"""
         start_node = self.root
         for i in prefix:
             # traverse to the correct part of the word tree
             if i in start_node.children:
                 start_node = start_node.children[i]
-            # avoid bogus words (assure we have a good starting node)
+            # return nothing when there is no children
             else:
                 return []
-        # enqueue the first node
-        self.queue.append((start_node, prefix))
-        # run until queue is empty
-        while self.queue:
+        return start_node
+
+    #TODO for students!!!
+    def suggest_bfs(self, prefix):
+        """Get word suggestions using BFS"""
+        bfs_suggestions = []
+        start_node = self.get_start_node(prefix) # traverse to the correct starting node
+        self.queue.append((start_node, prefix)) # enqueue the first node
+        while self.queue: # run until queue is empty
             # unpack the tuple
             node, current_prefix = self.queue.popleft()
-            # enqueue at all the node children while updating the prefix
-            for child in node.children.values():
-                new_prefix = current_prefix + child.letter
-                self.queue.append((child, new_prefix))
-                # spit out the suggestions
-                if child.is_word:
-                    bfs_suggestions.append(new_prefix)
+            if node: # only run the search when there is children
+                # enqueue at all the node children while updating the prefix
+                for child in node.children.values():
+                    new_prefix = current_prefix + child.letter
+                    self.queue.append((child, new_prefix))
+                    if child.is_word: 
+                        bfs_suggestions.append(new_prefix) # add the suggestions when the node completes a word
         return bfs_suggestions
 
 
     #TODO for students!!!
     def suggest_dfs(self, prefix):
+        """Get suggestions using DFS"""
         # base case
+        dfs_suggestions = []
+        # traverse to the 
         node = list(prefix)[-1] # top node
         root = self.root.children[node] # top node becomes root
         
