@@ -12,12 +12,13 @@ class Node:
         self.is_word = False
 
     def __str__(self):
-        return f"{self.letter}: Node({self.letter})"
+        return f"{self.letter}"
 
 class Autocomplete():
     def __init__(self, parent=None, document=""):
         self.root = Node()
-        self.suggest = self.suggest_random #Default, change this to `suggest_dfs/ucs/bfs` based on which one you wish to use.
+        self.suggest = self.suggest_bfs #Default, change this to `suggest_dfs/ucs/bfs` based on which one you wish to use.
+        self.queue = deque()
         # for checking purposes
         self.all_words = []
 
@@ -58,11 +59,41 @@ class Autocomplete():
 
     #TODO for students!!!
     def suggest_bfs(self, prefix):
-        pass
+        # base case
+        bfs_suggestions = []
+        # traverse to the correct starting node
+        start_node = self.root
+        for i in prefix:
+            # traverse to the correct part of the word tree
+            if i in start_node.children:
+                start_node = start_node.children[i]
+            # avoid bogus words (assure we have a good starting node)
+            else:
+                return []
+        # enqueue the first node
+        self.queue.append((start_node, prefix))
+        # run until queue is empty
+        while self.queue:
+            # unpack the tuple
+            node, current_prefix = self.queue.popleft()
+            # enqueue at all the node children while updating the prefix
+            for child in node.children.values():
+                new_prefix = current_prefix + child.letter
+                self.queue.append((child, new_prefix))
+                # spit out the suggestions
+                if child.is_word:
+                    bfs_suggestions.append(new_prefix)
+        return bfs_suggestions
+
 
     #TODO for students!!!
     def suggest_dfs(self, prefix):
-        pass
+        # base case
+        node = list(prefix)[-1] # top node
+        root = self.root.children[node] # top node becomes root
+        
+        return []
+
 
     #TODO for students!!!
     def suggest_ucs(self, prefix):

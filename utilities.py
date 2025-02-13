@@ -24,6 +24,7 @@ def create_gui(autocomplete_engine):
 
     entry = ttk.Entry(window)
     listbox = tk.Listbox(window)
+    print(entry)
 
     entry.bind("<KeyRelease>", lambda event: suggest_in_gui(event, entry, listbox, autocomplete_engine))
     entry.pack()
