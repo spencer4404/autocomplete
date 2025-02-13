@@ -75,8 +75,9 @@ class Autocomplete():
         bfs_suggestions = []
         start_node = self.get_start_node(prefix) # traverse to the correct starting node
         self.queue.append((start_node, prefix)) # enqueue the first node
-        while self.queue: # run until queue is empty
-            # unpack the tuple
+        # Run BFS on the queue
+        while self.queue:
+            # unpack the tuple, taking FIFO order
             node, current_prefix = self.queue.popleft()
             if node: # only run the search when there is children
                 # enqueue at all the node children while updating the prefix
@@ -91,13 +92,21 @@ class Autocomplete():
     #TODO for students!!!
     def suggest_dfs(self, prefix):
         """Get suggestions using DFS"""
-        # base case
         dfs_suggestions = []
-        # traverse to the 
-        node = list(prefix)[-1] # top node
-        root = self.root.children[node] # top node becomes root
-        
-        return []
+        start_node = self.get_start_node(prefix) # get the correct start node
+        self.queue.append((start_node, prefix))
+        # run DFS on the queue
+        while self.queue:
+            # unpack tuple, taking LIFO order
+            node, current_prefix = self.queue.pop()
+            if node: # only run the search when there is children
+                # enqueue at all the node children while updating the prefix
+                for child in node.children.values():
+                    new_prefix = current_prefix + child.letter
+                    self.queue.append((child, new_prefix))
+                    if child.is_word: 
+                        dfs_suggestions.append(new_prefix) # add the suggestions when the node completes a word
+        return dfs_suggestions
 
 
     #TODO for students!!!

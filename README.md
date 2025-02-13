@@ -333,6 +333,8 @@ graph TD;
     
     H-->E_the[E]
 
+    H-->O_thou[O]-->U_thou[U]
+
     H-->E_thee[E]-->E_thee2[E]
 
     H-->O_thought[O]
@@ -347,7 +349,7 @@ graph TD;
 
 ### Code analysis
 
-- Put the intuition of your code here
+- Splits the document into a list of words, and builds each word on the tree character by character, starting at the root each time. For each character, it checks if the correct node exisits, creates the node if needed, and then marks the last node of the word as the end of the word.
 
 ### Your output
 
