@@ -310,40 +310,25 @@ graph TD;
     ROOT-->T
     T-->H
 
-    H-->E_the[E]
+    H-->E_there[E]-->R_there[R]-->E_there2[E]-->end_there[END]
 
-    H-->E_there[E]
-    E_there[E]-->R_there[R]
-    R_there[R]-->E_there2[E]
+    E_there[E]-->end_the[END]    
 
-    E_there[E]-->I_their[I]
-    I_their[I]-->R_their[R]
-        
-    E_there[E]-->E_thee[E]
+    E_there[E]-->E_thee[E]-->end_thee[END]
 
-    H-->O_though[O]
-    O_though[O]-->U_though[U]
-    U_though[U]-->G_though[G]
-    G_though[G]-->H_though[H]
+    E_there[E]-->I_their[I]-->R_their[R]-->end_their[END]
 
-    H-->A_that[A]
-    A_that[A]-->T_that[T]
+    H-->A_that[A]-->T_that[T]-->end_that[END]
 
-    A_that[A]-->G_thag[G]
+    A_that[A]-->G_thag[G]-->end_thag[END]
 
-    H-->R_through[R]
-    R_through[R]-->O_though[O]
+    U_though[U]-->end_thou[END]
 
-    H-->O_thou[O]-->U_thou[U]
+    H-->O_thou[O]-->U_though[U]-->G_though[G]-->H_though[H]-->end_though[END]
 
-    H-->O_thought[O]
-    O_thought[O]-->U_thought[U]
-    U_thought[U]-->G_thought[G]
-    G_thought[G]-->H_thought[H]
-    H_thought[H]-->T_thought[T]
+    H_though[H]-->T_thought[T]-->end_thought[END]
 
     
-
 ```
 
 ### Code analysis
@@ -371,7 +356,7 @@ graph TD;
 - through
 
 
-## `DFS`
+**## `DFS`
 
 ### Code analysis
 
