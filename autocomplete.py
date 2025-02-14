@@ -17,7 +17,7 @@ class Node:
 class Autocomplete():
     def __init__(self, parent=None, document=""):
         self.root = Node()
-        self.suggest = self.suggest_bfs #Default, change this to `suggest_dfs/ucs/bfs` based on which one you wish to use.
+        self.suggest = self.suggest_dfs #Default, change this to `suggest_dfs/ucs/bfs` based on which one you wish to use.
         self.queue = deque()
         # for checking purposes
         self.all_words = []
@@ -88,7 +88,6 @@ class Autocomplete():
                         bfs_suggestions.append(new_prefix) # add the suggestions when the node completes a word
         return bfs_suggestions
 
-
     #TODO for students!!!
     def suggest_dfs(self, prefix):
         """Get suggestions using DFS"""
@@ -117,7 +116,6 @@ class Autocomplete():
 a = Autocomplete()
 words = "lit liter no cap bet fam fire tbh fr extra salty shook lowkey highkey vibe check sus simp ghosting salty snatched outfit cancelled shook tea is sis bruh bestie receipts facts curve basic extra totally  af simping cancelled glowed up mood flex clout drip fire iconic slay queen woke fam goals snatched tea no  savage shook lowkey highkey cap vibe check sus simp salty snatched cancelled shook tea sis bruh bestie receipts facts curve basic extra af glowed up mood flex clout drip iconic slay queen woke fam goals snatched tea savage periodt no cap finna turnt snatched tea savage shook lowkey vibe check sus simp salty snatched cancelled shook sis bruh bestie receipts facts curve basic extra af simping cancelled glowed up mood flex clout drip iconic slay queen woke goals tea savage lit no cap bet fam fire tbh fr extra salty shook lowkey vibe check sus simp ghosting salty snatched cancelled shook tea sis bruh bestie receipts facts curve basic extra af simping cancelled glowed up mood flex clout drip iconic slay queen woke fam goals snatched tea savage snatched receipts vibe check salty ghosting mood clout glow up facts sus fam basic slay there though that the their through thee thou thought thag"
 a.build_tree(words)
-a.print_tree()
-print(" ".join(sorted(a.all_words)))
-print(" ".join(sorted(set(words.split()))))
-print(a.check_tree(a.all_words, set(words.split())))
+# print(" ".join(sorted(a.all_words)))
+print("\n".join(sorted(set(words.split()))))
+# print(a.check_tree(a.all_words, set(words.split())))

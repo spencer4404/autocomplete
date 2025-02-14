@@ -310,9 +310,16 @@ graph TD;
     ROOT-->T
     T-->H
 
+    H-->E_the[E]
+
     H-->E_there[E]
     E_there[E]-->R_there[R]
     R_there[R]-->E_there2[E]
+
+    E_there[E]-->I_their[I]
+    I_their[I]-->R_their[R]
+        
+    E_there[E]-->E_thee[E]
 
     H-->O_though[O]
     O_though[O]-->U_though[U]
@@ -324,18 +331,10 @@ graph TD;
 
     A_that[A]-->G_thag[G]
 
-    H-->E_their[E]
-    E_their[E]-->I_their[I]
-    I_their[I]-->R_their[R]
-
     H-->R_through[R]
     R_through[R]-->O_though[O]
-    
-    H-->E_the[E]
 
     H-->O_thou[O]-->U_thou[U]
-
-    H-->E_thee[E]-->E_thee2[E]
 
     H-->O_thought[O]
     O_thought[O]-->U_thought[U]
@@ -351,35 +350,50 @@ graph TD;
 
 - Splits the document into a list of words, and builds each word on the tree character by character, starting at the root each time. For each character, it checks if the correct node exisits, creates the node if needed, and then marks the last node of the word as the end of the word.
 
-### Your output
-
-- Put the output you got for the prefixes provided here
-
 
 ## `BFS`
 
 ### Code analysis
 
-- Put the intuition of your code here
+- I defined a helper function get_start_node(prefix), that is one of the first things called in both BFS and DFS, and this function just makes sure we're at the correct node to start suggesting from based on the typed prefix. I used the deque data structure to create the FIFO queue that is started from the node given from the helper function. For each child, the prefix is updated and if child.is_word becomes true, the new word is added to the suggestions. I made use of the popleft() method of the deque to make sure the queue follows the FIFO order.
 
 ### Your output
 
-- Put the output you got for the prefixes provided here
+- the
+- thee
+- thou
+- that
+- thag
+- there
+- their
+- though
+- thought
+- through
 
 
 ## `DFS`
 
 ### Code analysis
 
-- Put the intuition of your code here
+- This search is almost exactly the same as BFS, as it pulls the start node using the helper function and then begins the search from there. However, instead of using the popleft() method, I just use the pop() method to create the LIFO order (stack).
 
 ### Your output
 
-- Put the output you got for the prefixes provided here
+- the
+- through
+- that
+- thag
+- thou
+- though
+- thought
+- thee
+- their
+- there
+
 
 ### Recursive DFS vs Stack-based DFS
-- Explain your intuition in recursive DFS VS stack-based DFS, and which one you used here.
 
+- In recursive, I'd have to create a helper function that dove through the tree for me, while in stack-based I could just reuse the queue attribute I created for BFS and pull from the other side. I decided to use stack-based as it just seemed more natural to me - I'm not super comfortable with recursion yet, and I also know Python has like a recursion depth limit, and I didn't want to have to deal with all that. Prof. McNichols also recommended using a stack in OOP, so that gave me another reason.
 
 ## `UCS`
 
