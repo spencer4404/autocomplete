@@ -10,6 +10,11 @@ class Node:
         self.children = {}
         self.letter = letter
         self.is_word = False
+        
+    # cost attribute changes dynamically as more children are added
+    @property
+    def cost(self):
+        return 1/len(self.children) if len(self.children) > 0 else 0
 
     def __str__(self):
         return f"{self.letter}"

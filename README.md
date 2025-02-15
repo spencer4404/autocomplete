@@ -298,7 +298,8 @@ def fizzbuzz(n):
 # A Reports section
 
 ## 383GPT
-Did you use 383GPT at all for this assignment (yes/no)?
+Did you use 383GPT at all for this assignment (yes/no)? 
+Yes!
 
 ## `build_tree`
 
