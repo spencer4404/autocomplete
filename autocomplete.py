@@ -18,7 +18,7 @@ class Node:
 class Autocomplete():
     def __init__(self, parent=None, document=""):
         self.root = Node()
-        self.suggest = self.suggest_dfs #Default, change this to `suggest_dfs/ucs/bfs` based on which one you wish to use.
+        self.suggest = self.suggest_ucs #Default, change this to `suggest_dfs/ucs/bfs` based on which one you wish to use.
         self.queue = deque()
         # for checking purposes
         self.all_words = []
@@ -128,13 +128,14 @@ class Autocomplete():
         heap = []
 
         start_node = self.get_start_node(prefix) # traverse to the correct starting node
-        cost = 0
+        cost = 0 # first node has no cost
         heapq.heappush(heap, (cost, prefix, start_node)) # add first node to the heap
 
         # Run UCS on the heap
         while heap:
             # unpack the tuple, taking taking the node with the least cost first
             cost, current_prefix, node = heapq.heappop(heap)
+
             if node.is_word:
                 ucs_suggestions.append(current_prefix)
 
@@ -143,9 +144,6 @@ class Autocomplete():
                 for child in node.children.values():
                     new_prefix = current_prefix + child.letter
                     child_cost = cost + (1 / child.frequency)
-
                     heapq.heappush(heap, (child_cost, new_prefix, child))
-                    # if child.is_word:
-                    #     ucs_suggestions.append(new_prefix) # add the suggestions when the node completes a word
 
         return ucs_suggestions

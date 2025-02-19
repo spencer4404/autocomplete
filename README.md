@@ -49,7 +49,6 @@ The future of "ChatCast" (and your internship) depends on it. Time to dive into 
         - `suggest_dfs`: Depth-First Search
         - `suggest_ucs`: Uniform-Cost Search  
 
-
 ## Background: Autocomplete as a Search Problem
 
 Alright! Let's give you some context before you get into the weeds of the starter code. 
@@ -293,18 +292,16 @@ def fizzbuzz(n):
 <br>
 <br>
 
-
-
 # A Reports section
 
 ## 383GPT
-Did you use 383GPT at all for this assignment (yes/no)? 
+
+Did you use 383GPT at all for this assignment (yes/no)?
 Yes!
 
 ## `build_tree`
 
 ### Tree diagram
-- Put the tree diagram for `test.txt` here
 
 ```mermaid
 graph TD;
@@ -336,8 +333,7 @@ graph TD;
 
 ### Code analysis
 
-- Splits the document into a list of words, and builds each word on the tree character by character, starting at the root each time. For each character, it checks if the correct node exisits, creates the node if needed, and then marks the last node of the word as the end of the word.
-
+- Splits the document into a list of words, and builds each word on the tree character by character, starting at the root each time. For each character, it checks if the correct node exists, creates the node if needed, and then marks the last node of the word as the end of the word.
 
 ## `BFS`
 
@@ -358,50 +354,48 @@ graph TD;
 - thought
 - through
 
-
-**## `DFS`
+## `DFS`
 
 ### Code analysis
 
-- This search is almost exactly the same as BFS, as it pulls the start node using the helper function and then begins the search from there. However, instead of using the popleft() method, I just use the pop() method to create the LIFO order (stack).
+- This search is almost exactly the same as BFS, as it pulls the start node using the helper function and then begins the search from there. However, instead of using the popleft() method, I just use the pop() method to create the LIFO order (stack), and I had to reverse the list I iterate through so that it starts from the "top" of the stack.
 
 ### Your output
 
 - the
+- thee
+- there
+- their
 - through
 - that
 - thag
 - thou
 - though
 - thought
-- thee
-- their
-- there
-
 
 ### Recursive DFS vs Stack-based DFS
 
-- In recursive, I'd have to create a helper function that dove through the tree for me, while in stack-based I could just reuse the queue attribute I created for BFS and pull from the other side. I decided to use stack-based as it just seemed more natural to me - I'm not super comfortable with recursion yet, and I also know Python has like a recursion depth limit, and I didn't want to have to deal with all that. Prof. McNichols also recommended using a stack in OOP, so that gave me another reason.
+- In recursive, I'd have to create a helper function that recursively called on itself and dove through the tree for me, while in stack-based I could just reuse the queue attribute I created for BFS but pull from the right side instead of the left. I decided to use stack-based as it just seemed more natural to me - I'm not super comfortable with recursion yet, and I also know Python has like a recursion depth limit, and I didn't want to have to deal with all that. Prof. McNichols also recommended using a stack in OOP, so that gave me another reason.
 
 ## `UCS`
 
 ### Code analysis
 
-- Put the intuition of your code here
+- Starts by getting the start node using get_start_node(), and initializes priority queue (heapq) with the starting cost at 0. It iterates through the heap and pops the lowest code node first. If this node completes a word, it's added to the suggestions list. For each child, it updates the prefix and computes the new cost, then pushes this child onto the heap.
 
 ### Your output
 
-- Put the output you got for the prefixes provided here
-
-
+- the
+- thou
+- thee
+- thag
+- that
+- though
+- their
+- there
+- thought
+- through
 
 ## Experimental
-- Explain here what differences did you see in the suggestions generated when you used BFS vs DFS vs UCS. 
 
-
-
-
-
-
-
-
+- For BFS, the words come up in order of length, with THE being the shortest word coming first, and THROUGH being the longest coming last. For DFS, you explore each letter first before moving on to the next. For example, you get all the T-H-E... words first (THE, THEE, THERE, THEIR) before you move on to the other letters. For UCS, the output seems a little unordered at first, but looking at the tree you can see that it prioritizes least-cost paths, meaning words with more frequent prefixes are explored first. It explores THE first because it costs the least, and through last because T-H-R-... points to nothing else besides THROUGH, making it the most expensive path.
