@@ -10,14 +10,10 @@ class Node:
         self.children = {}
         self.letter = letter
         self.is_word = False
-        
-    # cost attribute changes dynamically as more children are added
-    @property
-    def cost(self):
-        return 1/len(self.children) if len(self.children) > 0 else 0
+        self.frequency = 0
 
     def __str__(self):
-        return f"{self.letter}"
+        return f"{self.letter}: at {hex(id(self))}"
 
 class Autocomplete():
     def __init__(self, parent=None, document=""):
@@ -29,17 +25,27 @@ class Autocomplete():
 
     # build the tree
     def build_tree(self, document):
+        all_words = {}
         for word in document.split():
+            all_nodes = []
             node = self.root
+
             for char in word:
                 #TODO for students
                 # If the node for the letter does not exist under the root, create it
-                if char not in list(node.children.keys()):
+                if char not in node.children:
                     node.children[char] = Node(char)
                 # jump down to new node
                 node = node.children[char]
+                all_nodes.append(node)
+
             # mark last node as the end of the word
             node.is_word = True
+            # track unique words
+            for n in all_nodes:
+                n.frequency += 1  # Increment the frequency for each node in the path of the word
+
+            all_words[word] = all_nodes
 
     # recursive function to see the tree, basically a DFS
     def print_tree(self, node=None, prefix=""):
@@ -99,28 +105,47 @@ class Autocomplete():
         dfs_suggestions = []
         start_node = self.get_start_node(prefix) # get the correct start node
         self.queue.append((start_node, prefix))
+
         # run DFS on the queue
         while self.queue:
             # unpack tuple, taking LIFO order
             node, current_prefix = self.queue.pop()
+
             if node: # only run the search when there is children
-                # enqueue at all the node children while updating the prefix
-                for child in node.children.values():
+                # enqueue the children, have to flip it to match lifo order
+                for child in reversed(list(node.children.values())):
                     new_prefix = current_prefix + child.letter
                     self.queue.append((child, new_prefix))
-                    if child.is_word: 
+                    if child.is_word:
                         dfs_suggestions.append(new_prefix) # add the suggestions when the node completes a word
-        return dfs_suggestions
 
+        return dfs_suggestions
 
     #TODO for students!!!
     def suggest_ucs(self, prefix):
-        pass
+        """Get word suggestions using UCS"""
+        ucs_suggestions = []
+        heap = []
 
+        start_node = self.get_start_node(prefix) # traverse to the correct starting node
+        cost = 0
+        heapq.heappush(heap, (cost, prefix, start_node)) # add first node to the heap
 
-a = Autocomplete()
-words = "there though that the their through thee thou thought thag"
-a.build_tree(words)
-# print(" ".join(sorted(a.all_words)))
-print("\n".join(sorted(set(words.split()))))
-# print(a.check_tree(a.all_words, set(words.split())))
+        # Run UCS on the heap
+        while heap:
+            # unpack the tuple, taking taking the node with the least cost first
+            cost, current_prefix, node = heapq.heappop(heap)
+            if node.is_word:
+                ucs_suggestions.append(current_prefix)
+
+            if node: # only run the search when there is children
+                # add all the children based on the cost
+                for child in node.children.values():
+                    new_prefix = current_prefix + child.letter
+                    child_cost = cost + (1 / child.frequency)
+
+                    heapq.heappush(heap, (child_cost, new_prefix, child))
+                    # if child.is_word:
+                    #     ucs_suggestions.append(new_prefix) # add the suggestions when the node completes a word
+
+        return ucs_suggestions

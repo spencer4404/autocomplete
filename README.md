@@ -323,11 +323,13 @@ graph TD;
 
     A_that[A]-->G_thag[G]-->end_thag[END]
 
-    U_though[U]-->end_thou[END]
-
     H-->O_thou[O]-->U_though[U]-->G_though[G]-->H_though[H]-->end_though[END]
 
     H_though[H]-->T_thought[T]-->end_thought[END]
+
+    H-->R_through[R]-->O_through[O]-->U_through[U]-->G_through[G]-->H_through[H]-->end_through[END]
+
+    U_though[U]-->end_thou[END]
 
     
 ```
